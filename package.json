@@ -7,5 +7,9 @@
     "url": "git+https://github.com/MUD-TW/bundle-chaos.git"
   },
   "author": "Hsins <hsinspeng@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "humanize-duration": "^3.27.0",
+    "rando-js": "^0.2.0"
+  }
 }

@@ -1,0 +1,171 @@
+- id: white
+  title: "白色房間"
+  description: >
+    這是一間毫無特色的白色房間，在房間的東側可以看到一個呈拱門形狀的漆黑空間。
+  npcs: ["limbo:rat"]
+  items:
+    - id: "limbo:woodenchest"
+      respawnChance: 20
+      replaceOnRespawn: true # when this chest respawns completely replace it so its contents get refreshed
+  script: "white"
+  exits:
+    - roomId: "limbo:black"
+      direction: east
+      leaveMessage: " steps into the void and disappears."
+    - roomId: "limbo:ancientwayshrine"
+      direction: down
+    - roomId: "limbo:wallys"
+      direction: west
+    - roomId: "mapped:start"
+      direction: north
+- id: black
+  title: "黑色房間"
+  description: >
+    一間漆黑的房間，不知道是什麼原因，所有應該從房間向西射出的光線都沒有穿過拱門。天
+    花板上懸掛著一枚燈泡，照亮了這個地方，在房間的東邊，可以看到一個巨大的白色拱頂，
+    入口上方有一個招牌：「訓練區」
+  script: "black"
+  items:
+    - id: "limbo:sliceofcheese"
+      respawnChance: 10
+  npcs: ["limbo:wiseoldman", "limbo:puppy"]
+  exits:
+    - roomId: "limbo:white"
+      direction: west
+      leaveMessage: " steps into the light and disappears."
+    - roomId: "limbo:training1"
+      direction: east
+- &trainingroom
+  id: training1
+  title: "訓練房間"
+  script: "combat-training"
+  description: >-
+    這個區域被一個帶有六邊形網格表面的白色圓頂所覆蓋，藍色的天空從遠方延伸到地平線直
+    到被這些網格打斷，圓頂會會在虛擬的鳥禽飛入或飛出其表面時閃爍，純綠色的草地出奇地
+    不受你的踩踏和微風的干擾。
+  npcs:
+    - id: "limbo:trainingdummy"
+      respawnChance: 25
+      maxLoad: 3
+  exits:
+    - roomId: "limbo:black"
+      direction: west
+    - roomId: "limbo:training2"
+      direction: north
+    - roomId: "limbo:training4"
+      direction: east
+- <<: *trainingroom
+  id: training2
+  title: "Training Room 2"
+  items:
+    - id: "craft:greenplant"
+      respawnChance: 30
+  npcs:
+    - id: "limbo:trainingdummy"
+      respawnChance: 25
+      maxLoad: 3
+    - id: "limbo:aggro-player-test"
+      respawnChance: 25
+      maxLoad: 1
+  exits:
+    - roomId: "limbo:training1"
+      direction: south
+    - roomId: "limbo:training3"
+      direction: east
+- <<: *trainingroom
+  id: training3
+  title: "Training Room 3"
+  items:
+    - id: "craft:redrose"
+      respawnChance: 15
+  exits:
+    - roomId: "limbo:training2"
+      direction: west
+    - roomId: "limbo:training4"
+      direction: south
+    - roomId: "limbo:bosstraining"
+      direction: north
+- <<: *trainingroom
+  id: training4
+  title: "Training Room 4"
+  npcs:
+    - id: "limbo:trainingdummy"
+      respawnChance: 25
+      maxLoad: 3
+    - id: "limbo:aggro-npc-test"
+      respawnChance: 50
+      maxLoad: 2
+  exits:
+    - roomId: "limbo:training1"
+      direction: west
+    - roomId: "limbo:training3"
+      direction: north
+- id: bosstraining
+  title: "Boss Training Room"
+  description: >-
+    這一段的圓頂是鮮紅色的，純綠色的草被換成了光滑的白色表面，而你腳下的地面上鋪著印
+    有鮮紅色的<b><red>「危險」</red></b>字樣的磚頭。
+  npcs:
+    - id: "limbo:bossdummy"
+      respawnChance: 50
+  exits:
+    - roomId: "limbo:training3"
+      direction: south
+- id: ancientwayshrine
+  title: "古道聖地"
+  description: >
+    一個黑色的符文方尖碑塔聳立在這片空地的中央，周圍環繞著精靈光環，符文耀動著並發出
+    柔和的藍光。碑塔周圍的草地一塵不染，與空地上的荒草形成鮮明對比。
+  script: 'ancientwayshrine'
+  exits:
+    - roomId: "limbo:white"
+      direction: up
+    - roomId: "limbo:context"
+      direction: down
+- id: wallys
+  title: "威利商鋪"
+  description: >
+    一間色彩鮮豔的商店攤位矗立在荒涼的空地中間，攤位上鋪著五顏六色的布、閃亮的寶石和
+    各種戰鬥裝備。商品旁有一個大牌子寫著宣傳內容：「威利商鋪，這裡擁有鎮上最好的產品
+    ！盔甲、武器和魔藥！只要你說的出來，我們... 可能會有！」
+  npcs:
+    - id: "limbo:wallythewonderful"
+      respawnChance: 0
+  exits:
+    - roomId: "limbo:white"
+      direction: east
+- id: context
+  title: "測試房間"
+  script: 'context'
+  description: >-
+    這是一間測試用的房間，在這個特定的房間內有著一個只在這個房間有效的命令，試著輸入
+    以下命令來測試：
+      <bold><cyan>roomtest</cyan></bold>
+  metadata:
+    commands: [ 'roomtest' ]
+  items:
+    - id: "limbo:test_key"
+  exits:
+    - roomId: "limbo:ancientwayshrine"
+      direction: up
+    - roomId: "limbo:locked"
+      direction: east
+  doors:
+    "limbo:ancientwayshrine":
+      locked: true
+      closed: true
+- id: locked
+  title: "上鎖房間"
+  description: 這個房間需要一把鑰匙才能開啟
+  items:
+    - id: "limbo:locked_chest"
+      respawnChance: 5
+      replaceOnRespawn: true
+  exits:
+    - roomId: "limbo:context"
+      direction: west
+  doors:
+    "limbo:context":
+      lockedBy: "limbo:test_key"
+      locked: true
+      closed: true
