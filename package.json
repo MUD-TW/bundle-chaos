@@ -1,0 +1,11 @@
+{
+  "name": "bundle-chaos",
+  "version": "1.0.0",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MUD-TW/bundle-chaos.git"
+  },
+  "author": "Hsins <hsinspeng@gmail.com>",
+  "license": "MIT"
+}
